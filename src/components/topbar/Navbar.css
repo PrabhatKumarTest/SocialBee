@@ -1,0 +1,114 @@
+.Navbar{
+    margin: 0;
+    height: 3rem;
+    display: flex;
+    width: 100%;
+    background-color: #D19A55;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
+}
+
+.navleft{
+    flex: 3
+}
+
+.navleft span {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    font-weight: 500;
+    color: white;
+    cursor: -webkit-grab;
+    width: 100%
+    
+}
+
+.navcenter{
+    flex: 4;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 11px;
+    height: 1.75rem;
+}
+
+.navcenter .searchicon{
+    height: 1rem;
+}
+
+.navcenter .seachinput{
+    outline: none;
+    width: 70%;
+    border: none;
+    
+}
+
+.navright{
+    flex: 5;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    justify-content: space-around;
+    color: white;   
+}
+
+.navright .navlinks{
+    padding: 0 1rem;
+    font-size: 1rem
+}
+
+.navright .navlink{
+    padding: 0 1rem;
+}
+
+
+.navright .navicons{
+    display: flex;
+    align-items: center;
+    color: white;
+    position: relative
+
+}
+
+.icon {
+    height: 1rem;
+}
+
+.navright  .navicon{
+    padding: 0 0.5rem;
+    height: 1rem;
+    position: relative;
+
+}
+
+.navright .naviconbadge{
+    position: absolute;
+    top: -4px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+}
+
+.navprofile{
+    display: flex;
+    align-items: center
+}
+
+.navprofileimg{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: 0;
+    cursor: pointer;
+    object-fit: cover
+
+}
