@@ -6,12 +6,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  profilePicture: { type: String, default: "" },
-  coverPicture: { type: String, default: "" },
-  follower: { type: Array, default: [] },
-  following: { type: Array, default: [] },
-  isAdmin: { type: Boolean, default: false },
-  date: { type: Date, default: Date.now },
+  isAdmin: { type: Boolean, default: false }
 },
 {timestamps: true});
 

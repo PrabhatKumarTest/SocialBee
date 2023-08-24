@@ -2,10 +2,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const InfoSchema = new Schema({
-  description: { type: String, required: true }, // String is shorthand for {type: String}
-  city: { type: String, required: true },
-  hometown: { type: String, unique: true, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  description: { type: String }, // String is shorthand for {type: String}
+  city: { type: String  },
+  hometown: { type: String},
   date: { type: Date, default: Date.now },
+  profilePicture: { type: String, default: "" },
+  coverPicture: { type: String, default: "" },
+  follower: { type: Array, default: [] },
+  following: { type: Array, default: [] },
 },
 {timestamps: true});
 

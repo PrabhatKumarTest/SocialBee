@@ -96,15 +96,6 @@ router.post(
 
 // fetch user
 
-router.post("/getuser", fetchUser, async (req, res) => {
-  try{
-    console.log(req.user)
-  const user = await User.findById(req.user.id).select('-password')
-  res.status(200).send(user)
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Something went wrong" })
-}
-});
+
 
 module.exports = router;
