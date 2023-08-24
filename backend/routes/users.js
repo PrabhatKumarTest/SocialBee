@@ -1,4 +1,5 @@
 const express = require('express')
+const fetchUser = require('../middleware/fetchuser')
 const router = express.Router()
 
 
@@ -7,10 +8,10 @@ router.get("/", (req, res) => {
 })
 
 // Create User Information
-router.put('/updateuserinfo:id', async (req, res) => {
+router.put('/updateuser' , async (req, res) => {
   try {
-    const { email} = req.body
-    if (email === req.params.id || req.body.isAdmin) {
+    const { email } = req.body
+    if (email === req.user.id || req.body.isAdmin) {
             
     } else {
       

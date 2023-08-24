@@ -2,14 +2,15 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const fetchUser = require("../middleware/fetchuser");
 
 router.get("/", (req, res) => {
   res.send("Hello from router user");
 });
 
-// Creating a user 
+// Creating a user
 router.post(
   "/createuser",
   [
@@ -30,7 +31,7 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      // check if user already exists 
+      // check if user already exists
       const user = await User.findOne({ email });
       if (user) {
         return res.status(400).send("User Already Exist");
@@ -45,7 +46,7 @@ router.post(
       });
 
       // saving the new user with hashed password in database
-      await newUser.save() && res.status(200).send(newUser);
+      (await newUser.save()) && res.status(200).send(newUser);
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -68,31 +69,42 @@ router.post(
     try {
       const { email, password } = req.body;
 
-      // check if user does not exists 
+      // check if user does not exists
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(400).send("User Does Not Exist");
       }
 
       // Decrypting password from password
-      const comparedPassword = await bcrypt.compare(password, user.password)
+      const comparedPassword = await bcrypt.compare(password, user.password);
       if (!comparedPassword) {
-        return res.status(400).send("Wrong Credentails, Please Login Again")
+        return res.status(400).send("Wrong Credentails, Please Login Again");
       }
       // If user is logged in sharing a jwtToken with the user
-      const data = await {
+      const data = {
         user: {
-          id: user.id
-        }
-      }
-      const jwtToken = await jwt.sign(data, process.env.JWT_PVT_KEY)
-      res.json({ jwtToken })
-      
+          id: user.id,
+        },
+      };
+      const jwtToken = await jwt.sign(data, process.env.JWT_PVT_KEY);
+      res.json({ jwtToken });
     } catch (error) {
       res.status(500).send(error.message);
     }
   }
 );
 
+// fetch user
+
+router.post("/getuser", fetchUser, async (req, res) => {
+  try{
+    console.log(req.user)
+  const user = await User.findById(req.user.id).select('-password')
+  res.status(200).send(user)
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Something went wrong" })
+}
+});
 
 module.exports = router;
